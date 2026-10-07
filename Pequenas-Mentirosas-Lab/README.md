@@ -39,7 +39,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > 
 > `-oN servicios:` Guarda la salida detallada en el archivo `servicios.`
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-1.png)
+> ![](Imagenes/IMG-1.png)
 > 
 > **Resultado | Puertos Abiertos Identificados:**
 > * `22/tcp -SSH`
@@ -49,7 +49,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 >[!NOTE]
 > Navegar al servicio web expuesto en el puerto `80/tcp` y analizar la aplicación.
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-2.png)
+> ![](Imagenes/IMG-2.png)
 > 
 > **Deducción:** 
 > Tras inspeccionar la aplicación web, se infiere la existencia del usuario `A` como posible candidato para autenticación.
@@ -70,7 +70,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > 
 > `-t 4`: Ajusta el número de tareas o hilos concurrentes en paralelo (4 conexiones en paralelo).
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-3.png)
+> ![](Imagenes/IMG-3.png)
 > 
 > ### Conclusion del Ataque de Fuerza Bruta
 > 
@@ -91,7 +91,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > **Password**: `secret`
 > **Estado**: Acceso inicial concedido.
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-8.png)
+> ![](Imagenes/IMG-8.png)
 
 ## 5. Escalada de Privilegios e Inspección Interna
 >[!NOTE]
@@ -105,7 +105,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > 
 > **Análisis**: El sistema indica que el usuario `a` no tiene permisos `sudo`. Se procede a inspeccionar el sistema de archivos de forma manual en busca de vectores alternativos.
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-4.png)
+> ![](Imagenes/IMG-4.png)
 
 ## 6. Movimiento Lateral (Usuario `spencer`)
 >[!NOTE]
@@ -126,17 +126,17 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > **Resultado de la inspección:**
 > Se localizan y leen los archivos **`/srv/ftp/clave_aes.txt`** y **`/srv/ftp/pista_fuerza_bruta.txt`** con el comando **`cat`** los cuales revelan información que confirma la presencia del segundo usuario: **`spencer`**.
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-5.png)
+> ![](Imagenes/IMG-5.png)
 > 
 > ```bash
 > cat /srv/ftp/clave_aes.txt`
 > ```
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-6.png)
+> ![](Imagenes/IMG-6.png)
 > 
 > ```bash
 > cat /srv/ftp/pista_fuerza_bruta.txt 
 > ```
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-7.png)
+> ![](Imagenes/IMG-7.png)
 
 ## 7. Ataque fuerza Bruta a Usuario `spencer`.
 >[!NOTE]
@@ -146,7 +146,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > hydra -l spencer -P /usr/share/wordlists/rockyou.txt ssh://172.17.0.2 -t 4
 > ```
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-11.png)
+> ![](Imagenes/IMG-11.png)
 > 
 > **Conclusión del Ataque:**
 > Ataque exitoso logrando comprometer el acceso SSH del segundo usuario.
@@ -164,7 +164,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > sudo -l
 > ```
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-9.png)
+> ![](Imagenes/IMG-9.png)
 > 
 > `User spencer may run the following commands on 419df0fb739a: 
 > **`(ALL) NOPASSWD: /usr/bin/python3`**
@@ -177,7 +177,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > 
 > **Obtuvimos el comando desde la siguiente base de datos:**
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-10.png)
+> ![](Imagenes/IMG-10.png)
 > 
 > **Desglose del comando y funciones utilizadas:**
 > 
@@ -205,7 +205,7 @@ El objetivo es identificar servicios expuestos, explotar fallos de configuracion
 > uid=0(root) gid=0(root) groups=0(root)
 > ```
 > 
-> ![](Pequenas-Mentirosas-Lab/Imagenes/IMG-12.png)
+> ![](Imagenes/IMG-12.png)
 
 ## 9. Recomendaciones de Mitigación
 >[!WARNING]
